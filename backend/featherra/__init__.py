@@ -1,0 +1,1 @@
+# Featherra core configuration package.
