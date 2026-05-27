@@ -67,18 +67,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'featherra.wsgi.application'
 
 # Database
-# Connects to PostgreSQL using credentials from .env, with a SQLite fallback for resilient local development.
-DB_ENGINE = os.getenv('DB_ENGINE', 'django.db.backends.postgresql')
+# Uses MySQL by default when DB credentials are present, with a SQLite fallback for resilient local development.
+DB_ENGINE = os.getenv('DB_ENGINE', 'django.db.backends.mysql')
 DB_NAME = os.getenv('DB_NAME', '')
 DB_USER = os.getenv('DB_USER', '')
 DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 DB_HOST = os.getenv('DB_HOST', 'localhost')
-DB_PORT = os.getenv('DB_PORT', '5432')
+DB_PORT = os.getenv('DB_PORT', '3306')
 
-if DB_ENGINE == 'django.db.backends.postgresql' and DB_NAME:
+if DB_ENGINE == 'django.db.backends.mysql' and DB_NAME:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
+            'ENGINE': 'django.db.backends.mysql',
             'NAME': DB_NAME,
             'USER': DB_USER,
             'PASSWORD': DB_PASSWORD,
@@ -87,7 +87,7 @@ if DB_ENGINE == 'django.db.backends.postgresql' and DB_NAME:
         }
     }
 else:
-    # Fail-safe local sqlite database for setup & test runner if Postgres variables are omitted
+    # Fail-safe local sqlite database for setup & test runner if MySQL variables are omitted
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
