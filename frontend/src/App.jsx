@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { apiUrl } from './api'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import AboutUs from './components/AboutUs'
@@ -124,7 +125,7 @@ export default function App() {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/services/')
+        const res = await fetch(apiUrl('/api/services/'))
         if (res.ok) {
           const data = await res.json()
           setServices(data.length > 0 ? data : MOCK_SERVICES)
@@ -141,7 +142,7 @@ export default function App() {
 
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/products/')
+        const res = await fetch(apiUrl('/api/products/'))
         if (res.ok) {
           const data = await res.json()
           setProducts(data.length > 0 ? data : MOCK_PRODUCTS)
