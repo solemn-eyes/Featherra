@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, Sparkles } from 'lucide-react'
+import { apiUrl } from '../api'
 
 export default function ContactForm({ initialProduct = null }) {
   const [formData, setFormData] = useState({
@@ -66,7 +67,7 @@ export default function ContactForm({ initialProduct = null }) {
 
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/api/contacts/', {
+      const response = await fetch(apiUrl('/api/contacts/'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
