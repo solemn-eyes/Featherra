@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { X, Calendar, Ticket, Phone, Mail, User, Info, CheckCircle2 } from 'lucide-react'
+import { apiUrl } from '../api'
 
 export default function BookingModal({ isOpen, onClose, initialWorkshop = 'sustainable_poultry' }) {
   const [formData, setFormData] = useState({
@@ -84,7 +85,7 @@ export default function BookingModal({ isOpen, onClose, initialWorkshop = 'susta
 
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:8000/api/bookings/', {
+      const response = await fetch(apiUrl('/api/bookings/'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
