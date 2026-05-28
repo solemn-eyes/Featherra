@@ -1,5 +1,6 @@
 import React from 'react'
 import * as Icons from 'lucide-react'
+import { getAssetImage } from '../images'
 
 // Dynamic icon resolver helper
 const IconResolver = ({ name, size = 32, ...props }) => {
@@ -40,12 +41,20 @@ export default function ServicesGrid({ services = [], onSelectService, loading }
                 style={cardStyle}
                 onClick={() => onSelectService(service)}
               >
-                {/* Icon Wrapper */}
-                <div style={iconWrapperStyle}>
-                  <IconResolver name={service.icon} style={{ color: 'var(--accent-gold)' }} />
+                <div style={imageWrapStyle}>
+                  <img
+                    src={getAssetImage(service.image_name)}
+                    alt={service.title}
+                    style={cardImageStyle}
+                    loading="lazy"
+                  />
+                  <div style={imageOverlayStyle} />
+                  <div style={iconBadgeStyle}>
+                    <IconResolver name={service.icon} size={22} style={{ color: 'var(--accent-gold)' }} />
+                  </div>
                 </div>
 
-                {/* Content */}
+                <div style={cardBodyStyle}>
                 <h3 style={cardTitleStyle}>{service.title}</h3>
                 <p style={cardDescStyle}>{service.description}</p>
 
@@ -53,6 +62,7 @@ export default function ServicesGrid({ services = [], onSelectService, loading }
                 <div style={cardCtaStyle}>
                   <span>{service.cta_text || 'Learn More'}</span>
                   <Icons.ArrowRight size={16} style={arrowStyle} />
+                </div>
                 </div>
               </div>
             ))}
@@ -116,24 +126,56 @@ const gridStyle = {
 }
 
 const cardStyle = {
-  padding: '3rem 2rem',
+  padding: 0,
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
+  alignItems: 'stretch',
   cursor: 'pointer',
+  overflow: 'hidden',
 }
 
-const iconWrapperStyle = {
-  width: '64px',
-  height: '64px',
-  borderRadius: '16px',
-  background: 'rgba(235, 208, 102, 0.04)',
-  border: '1px solid rgba(235, 208, 102, 0.1)',
+const imageWrapStyle = {
+  position: 'relative',
+  height: '200px',
+  overflow: 'hidden',
+}
+
+const cardImageStyle = {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  display: 'block',
+  transition: 'transform 0.5s ease',
+}
+
+const imageOverlayStyle = {
+  position: 'absolute',
+  inset: 0,
+  background: 'linear-gradient(to top, rgba(14, 20, 16, 0.85) 0%, rgba(14, 20, 16, 0.1) 55%)',
+  pointerEvents: 'none',
+}
+
+const iconBadgeStyle = {
+  position: 'absolute',
+  bottom: '1rem',
+  left: '1.25rem',
+  width: '44px',
+  height: '44px',
+  borderRadius: '12px',
+  background: 'rgba(14, 20, 16, 0.75)',
+  border: '1px solid rgba(235, 208, 102, 0.2)',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: '2rem',
-  boxShadow: 'inset 0 0 15px rgba(235, 208, 102, 0.03)',
+  backdropFilter: 'blur(8px)',
+}
+
+const cardBodyStyle = {
+  padding: '1.75rem 2rem 2.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  flexGrow: 1,
 }
 
 const cardTitleStyle = {
