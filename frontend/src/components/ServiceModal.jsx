@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { X, Check, ShieldCheck, HeartHandshake, Compass } from 'lucide-react'
+import { getAssetImage } from '../images'
 
 export default function ServiceModal({ service, onClose, onBookFarm, onExploreProducts }) {
   useEffect(() => {
@@ -49,8 +50,12 @@ export default function ServiceModal({ service, onClose, onBookFarm, onExplorePr
 
         <div style={flexLayout}>
           {/* Visual Left side with glowing indicators */}
-          <div style={visualContainerStyle}>
-            <div style={glowingSphereStyle}></div>
+          <div style={{
+            ...visualContainerStyle,
+            backgroundImage: `linear-gradient(to bottom, rgba(14, 20, 16, 0.55) 0%, rgba(14, 20, 16, 0.92) 100%), url(${getAssetImage(service.image_name)})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}>
             <div style={badgeContainerStyle}>
               <span className="badge-organic">Certified Sustainable</span>
             </div>
@@ -152,7 +157,6 @@ const flexLayout = {
 
 const visualContainerStyle = {
   flex: '1 1 300px',
-  background: 'radial-gradient(circle at center, rgba(42, 87, 61, 0.15) 0%, rgba(14, 20, 16, 0.6) 100%)',
   border: '1px solid rgba(68, 143, 100, 0.12)',
   borderRadius: '16px',
   padding: '2.5rem 2rem',
@@ -162,17 +166,6 @@ const visualContainerStyle = {
   minHeight: '350px',
   position: 'relative',
   overflow: 'hidden',
-}
-
-const glowingSphereStyle = {
-  position: 'absolute',
-  width: '180px',
-  height: '180px',
-  borderRadius: '50%',
-  background: 'radial-gradient(circle, rgba(235, 208, 102, 0.08) 0%, transparent 70%)',
-  top: '-40px',
-  right: '-40px',
-  animation: 'pulseGlow 5s ease-in-out infinite',
 }
 
 const badgeContainerStyle = {
