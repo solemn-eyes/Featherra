@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Sparkles, ShoppingBag, ArrowRight } from 'lucide-react'
+import { getAssetImage } from '../images'
 
 export default function ProductsCatalog({ products = [], onOrderClick, onBookClick, loading }) {
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -72,8 +73,13 @@ export default function ProductsCatalog({ products = [], onOrderClick, onBookCli
               <div key={product.id} className="glass-card" style={productCardStyle}>
                 {/* Image Placeholder Frame */}
                 <div style={imageContainerStyle}>
-                  <div style={glowingPastureGradient}></div>
-                  <ShoppingBag size={24} style={shoppingBagIcon} />
+                  <img
+                    src={getAssetImage(product.image_name)}
+                    alt={product.name}
+                    style={productImageStyle}
+                    loading="lazy"
+                  />
+                  <div style={imageOverlayStyle}></div>
                   {product.is_organic && (
                     <span style={organicBadgeStyle}>
                       <Sparkles size={10} /> 100% ORGANIC
@@ -200,29 +206,26 @@ const productCardStyle = {
 }
 
 const imageContainerStyle = {
-  height: '200px',
-  background: 'radial-gradient(circle at center, rgba(42, 87, 61, 0.25) 0%, rgba(14, 20, 16, 0.75) 100%)',
+  height: '220px',
   borderBottom: '1px solid rgba(235, 208, 102, 0.08)',
   position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
   overflow: 'hidden',
+  background: 'var(--bg-primary)',
 }
 
-const glowingPastureGradient = {
+const productImageStyle = {
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+  display: 'block',
+  transition: 'transform 0.5s ease',
+}
+
+const imageOverlayStyle = {
   position: 'absolute',
-  top: '-50%',
-  left: '-50%',
-  width: '200%',
-  height: '200%',
-  background: 'radial-gradient(circle, rgba(235, 208, 102, 0.03) 0%, transparent 60%)',
-  animation: 'pulseGlow 10s ease-in-out infinite',
-}
-
-const shoppingBagIcon = {
-  color: 'rgba(235, 208, 102, 0.15)',
-  transform: 'scale(1.8)',
+  inset: 0,
+  background: 'linear-gradient(to top, rgba(14, 20, 16, 0.5) 0%, transparent 50%)',
+  pointerEvents: 'none',
 }
 
 const organicBadgeStyle = {
