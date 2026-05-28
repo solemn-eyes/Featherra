@@ -75,7 +75,7 @@ const backgroundGraphicStyle = {
   right: 0,
   bottom: 0,
   // High-end warm-overlay on poultry farm background representation
-  backgroundImage: 'linear-gradient(to bottom, rgba(14, 20, 16, 0.8) 0%, rgba(14, 20, 16, 0.95) 100%), url("/assets/farm_sunset.jpg")',
+  backgroundImage: 'linear-gradient(to bottom, rgba(14, 20, 16, 0.8) 0%, rgba(14, 20, 16, 0.95) 100%), url("/images/farm_sunset.jpg")',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   zIndex: 1,
